@@ -1,6 +1,8 @@
 Apache Kafka 입문과 활용
+
 EC2정보 : 13.209.15.116
 ppk 파일정보 : aws-gymnopedy-kafka.ppk
+https://ap-northeast-2.console.aws.amazon.com/ec2/home?region=ap-northeast-2#Instances:instanceState=running;v=3;$case=tags:true%5C,client:false;$regex=tags:false%5C,client:false
 
 
 # EC2 카프카 설치, 실행
