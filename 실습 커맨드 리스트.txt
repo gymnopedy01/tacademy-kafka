@@ -7,7 +7,7 @@ https://ap-northeast-2.console.aws.amazon.com/ec2/home?region=ap-northeast-2#Ins
 
 # EC2 카프카 설치, 실행
 1 chmod 400 test-kafka.pem
-2 ssh -i kafka-test.pem ec2-user@13.209.15.116
+2 ssh -i aws-gymnopedy-kafka.ppk ec2-user@13.209.15.116
 3 sudo yum install -y java-1.8.0-openjdk-devel.x86_64
 4 wget wget https://archive.apache.org/dist/kafka/2.7.0/kafka_2.12-2.7.0.tgz
 5 export KAFKA_HEAP_OPTS="-Xmx400m -Xms400m"
@@ -17,6 +17,24 @@ https://ap-northeast-2.console.aws.amazon.com/ec2/home?region=ap-northeast-2#Ins
 9 bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
 10 bin/kafka-server-start.sh -daemon config/server.properties
 11 tail -f logs/*
+
+
+cd tacademy/kafka_2.13-2.5.0/bin
+# Local(GitBash) 설치 및 CLI 실행
+mkdir tacademy
+cd tacademy
+12 curl https://archive.apache.org/dist/kafka/2.5.0/kafka_2.13-2.5.0.tgz --output kafka.tgz 
+13 tar -xvf kafka.tgz
+14 cd kafka_2.13-2.5.0/bin
+15 ./kafka-topics.sh --create --bootstrap-server 13.209.15.116:9092 --replication-factor 1 --partitions 3 --topic test
+16 ./kafka-console-producer.sh --bootstrap-server 13.209.15.116:9092 --topic test
+17 ./kafka-console-consumer.sh --bootstrap-server 13.209.15.116:9092 --topic test --from-beginning
+18 ./kafka-console-consumer.sh --bootstrap-server 13.209.15.116:9092 --topic test -group testgroup --from-beginning
+19 ./kafka-consumer-groups.sh --bootstrap-server 13.209.15.116:9092 --list
+20 ./kafka-consumer-groups.sh --bootstrap-server 13.209.15.116:9092 --group testgroup --describe
+21 ./kafka-consumer-groups.sh --bootstrap-server 13.209.15.116:9092 --group testgroup --topic test --reset-offsets --to-earliest --execute
+22 ./kafka-consumer-groups.sh --bootstrap-server 13.209.15.116:9092 --group testgroup --topic test:1 --reset-offsets --to-offset 10 --execute
+
 
 # Local(macOS) 설치 및 CLI 실행
 12 curl https://archive.apache.org/dist/kafka/2.5.0/kafka_2.13-2.5.0.tgz --output kafka.tgz 
