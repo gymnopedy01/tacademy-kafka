@@ -1,4 +1,5 @@
 tacademy/
+*/.idea/
 
 # Compiled class file
 *.class
